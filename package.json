@@ -1,0 +1,8 @@
+{
+  "name": "basicincome.co",
+  "description": "a ripple app",
+  "author": "A confused individual <iam@confused.com>",
+  "dependencies": {
+    "express": "latest"
+  }
+}

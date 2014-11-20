@@ -1,0 +1,20 @@
+      <form ng-submit="submit()" ng-controller="BlobCtrl">
+
+<div class="submit-btn-container">
+
+<label for="login_username">Ripple name</label>
+<div class="input-group">
+
+    <span class="input-group-addon ripple-addon">~</span>
+<input id="login_username" name="login_username" type="text" ng-model="username" required="required" rp-focus-on-empty="rp-focus-on-empty" rp-autofill="$routeParams.username" class="form-control"/></div>
+<div ng-hide="twoFactor" class="form-group"><label for="login_password" l10n="l10n">Password</label>
+<input id="login_password" name="login_password" type="password" ng-model="password" required="required" rp-focus="rp-focus" class="form-control"/></div>
+</div>
+
+    <div class="form-group text-right"> <div ng-show="status" class="text-status"><br/></div>
+    <div class="submit-btn-container">
+        <button type="submit" id="submit" ng-click="startSpin()" ng-hide="twoFactor" class="btn btn-submit btn-block btn-success">
+        <span style="font-family: sans-serif">Log In</span></button></div>
+   </div>
+           </form>
+  <span us-spinner spinner-key="spinner-1"></span>
