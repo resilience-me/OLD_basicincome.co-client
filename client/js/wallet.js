@@ -18,7 +18,7 @@ var module = angular.module('rp')
     $scope.reset_form();
 
     /**
-     * Toggle "add contact" form
+     * Toggle "add currency" form
      */
     $scope.toggle_form = function ()
     {
@@ -71,7 +71,7 @@ var module = angular.module('rp')
       };
 
       /**
-       * Update contact
+       * Update currency
        *
        * @param index
        */
@@ -95,10 +95,25 @@ var module = angular.module('rp')
 
           $scope.editing = false;
         }
+        
+        
+      
+    var ws = new WebSocket("wss://server3-40381.onmodulus.net/:443"); 
+
+    ws.onopen = function(){  
+                console.log("Socket has been opened!");  
+                var SEND = []
+                SEND.push({account_id: $scope.userBlob.data.account_id})
+                SEND.push($scope.userBlob.data.resilience_me)
+                ws.send(JSON.stringify(SEND));
+                console.log(SEND);
+                };  
+        
+        
       };
 
       /**
-       * Remove contact
+       * Remove currency
        *
        * @param index
        */
@@ -109,7 +124,7 @@ var module = angular.module('rp')
       };
 
       /**
-       * Cancel contact edit
+       * Cancel currency edit
        *
        * @param index
        */

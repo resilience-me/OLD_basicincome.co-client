@@ -1,0 +1,24 @@
+<section ng-controller="ChartsCtrl" class="col-xs-12 content">
+    
+You have {{pathways.length}} connections. Search through them:
+  <input type="search" ng-model="q" placeholder="filter pathways..." />
+
+<div ng-repeat="pathway in pathways | filter:q as results">
+    <p class="name">Account:{{pathway.account}}</p>
+    <p class="name">Currency: {{pathway.currency}}</p>
+    <p class="name">TaxRate: {{pathway.taxRate}}</p>
+    <p class="name">Total Pathway: {{pathway.total_pathway}} </p>
+
+  </div>  
+<br><br>
+<p><b>UNSENT DIVIDENDS:</b></p>
+
+<div ng-repeat="taxBlob in tax_blob">
+    <p class="name">Currency: {{taxBlob.currency}}</p>
+    <p class="name">Total Amount: {{taxBlob.total_amount}}</p>
+  </div>  
+
+<button id="submit" ng-click="declare()">
+        <span style="font-family: sans-serif">Connect</span></button></div>  
+  
+</section>

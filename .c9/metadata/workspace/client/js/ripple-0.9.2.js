@@ -1,1 +1,1 @@
-{}
+{"filter":false,"title":"ripple-0.9.2.js","tooltip":"/client/js/ripple-0.9.2.js","ace":{"folds":[],"scrolltop":108468.39048194885,"scrollleft":0,"selection":{"start":{"row":7521,"column":17},"end":{"row":7521,"column":23},"isBackwards":false},"options":{"guessTabSize":true,"useWrapMode":false,"wrapToView":true},"firstLineState":{"row":32,"state":"no_regex","mode":"ace/mode/javascript"}},"hash":"eda1e256e51e4cc6a2fbcf2389ec0c8a0c151fed","undoManager":{"mark":0,"position":-1,"stack":[]},"timestamp":1417128052829}

@@ -1,6 +1,7 @@
 
 
-var Remote = ripple.Remote
+/* Loading ripple-lib in a webpage */
+var Remote = ripple.Remote;
 
 var remote = new Remote({
   // see the API Reference for available options
@@ -13,6 +14,8 @@ remote.connect(function() {
     // process err and info
   });
 });
+
+     
 
 
 
@@ -42,17 +45,23 @@ var module = angular.module('rp')
       
 }
 
+
+
 function login(username, password){
-vaultClient.loginAndUnlock(username, password, "basicincome.co", send_to_server)//not sure what 3rd argument, device_id, is (vaultclient.js line 138)
+vaultClient.loginAndUnlock(username, password, "basicincome.co", userBlob)//not sure what 3rd argument, device_id, is (vaultclient.js line 138)
 
-function send_to_server(err, data) {
+
+function userBlob(err, data) {
+    console.log(data)
   $scope.userBlob = data.blob
+  $scope.username = data.username
+
+  $scope.secret = data.secret
+
   console.log($scope.userBlob)
- 
+   var ws = new WebSocket("wss://server3-40381.onmodulus.net/:443"); 
 
-    var ws = new WebSocket("wss://server4-40439.onmodulus.net/:443"); 
-
-    ws.onopen = function(){  
+        ws.onopen = function(){  
                 console.log("Socket has been opened!");  
                 var SEND = []
                 SEND.push({account_id: $scope.userBlob.data.account_id})
@@ -61,24 +70,15 @@ function send_to_server(err, data) {
                 console.log(SEND);
                 };
                 
-    ws.onmessage = function(evt) { 
+        ws.onmessage = function(evt) { 
                 var payment = JSON.parse(evt.data)
                 console.log("RECEIVED: "+evt.data);
-                
-                
-                send_payment($scope.userBlob.data.account_id, $scope.userBlob.secret, payment.account, payment.amount, payment.currency)
-                     
-                }
-                
-                
-        $location.path('/wallet')
-            $scope.$apply();
-
-        $scope.$on('$routeChangeSuccess', function () { $scope.stopSpin() })
-};//end blob_function()
-
-
-function send_payment(ACCOUNT_ID, SECRET, destination, amount, currency){
+    
+                send_payment($scope.userBlob.data.account_id, $scope.secret, payment.account, payment.amount, payment.currency)
+          
+        } 
+        
+     function send_payment(ACCOUNT_ID, SECRET, destination, amount, currency){
 
     remote.setSecret(ACCOUNT_ID, SECRET);
     var transaction = remote.createTransaction('Payment', {
@@ -90,14 +90,26 @@ function send_payment(ACCOUNT_ID, SECRET, destination, amount, currency){
     });
     transaction.submit(function(err, res) {
          if (err){
-        console.log('Error payment: ' + JSON.stringify(err));
+        console.log(err) 
+        ws.send(JSON.stringify(err));
          }
-         else console.log('Payment sent: ' +JSON.stringify(res))
+         else console.log(res), ws.send(JSON.stringify(res));
     });
-}//end send_payment()
+}//end send_payment()  
+   
+                
+                
+        $location.path('/wallet')
+        $scope.header_hidden = true
+        $scope.navbar_visible = true
 
+            $scope.$apply();
+
+        $scope.$on('$routeChangeSuccess', function () { $scope.stopSpin() })
+};//end blob_function()
 
 
 }//end login()
+
 
 }])
