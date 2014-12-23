@@ -6,7 +6,7 @@
 
 </pre>
 
-## http://bascincome.co
+## http://basicincome.co/
 
 **todo:** 
 
